@@ -43,4 +43,38 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    @Override
+    public StudentDto updateStudents(Long id, CreateStudentDto dto) {
+        Students students = sRepo.findById(id).orElseThrow(
+                () -> new RuntimeException("Student Not Found"));
+        students.setName(dto.getName());
+        students.setAddress(dto.getAddress());
+        students.setFatherName(dto.getFatherName());
+        students.setMobile(dto.getMobile());
+        Students saveStudent = sRepo.save(students);
+
+        return new StudentDto(saveStudent.getId(), saveStudent.getName(), saveStudent.getFatherName(),
+                saveStudent.getMobile(), saveStudent.getAddress());
+
+    }
+
+    public StudentDto patchStudent(Long id, CreateStudentDto dto) {
+        Students students = sRepo.findById(id).orElseThrow();
+        if (dto.getName() != null) {
+            students.setName(dto.getName());
+        }
+        if (dto.getAddress() != null) {
+            students.setAddress(dto.getAddress());
+        }
+        if (dto.getFatherName() != null) {
+            students.setFatherName(dto.getFatherName());
+        }
+        if (dto.getMobile() != null) {
+            students.setMobile(dto.getMobile());
+        }
+        return new StudentDto(students.getId(), students.getName(), students.getFatherName(), students.getMobile(),
+                students.getAddress());
+
+    };
+
 }
