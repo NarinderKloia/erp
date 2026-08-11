@@ -16,4 +16,6 @@ public interface StudentService {
     public StudentDto updateStudents(Long id, CreateStudentDto dto);
 
     public StudentDto patchStudent(Long id, CreateStudentDto dto);
+
+    public String deleteStudent(Long id);
 }

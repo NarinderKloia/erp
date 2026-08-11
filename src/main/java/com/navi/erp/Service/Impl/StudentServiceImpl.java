@@ -75,6 +75,13 @@ public class StudentServiceImpl implements StudentService {
         return new StudentDto(students.getId(), students.getName(), students.getFatherName(), students.getMobile(),
                 students.getAddress());
 
+    }
+
+    @Override
+    public String deleteStudent(Long id) {
+        sRepo.deleteById(id);
+        return null;
+
     };
 
 }
