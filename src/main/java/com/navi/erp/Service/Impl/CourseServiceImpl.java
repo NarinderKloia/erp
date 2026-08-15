@@ -1,5 +1,7 @@
 package com.navi.erp.Service.Impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.navi.erp.Dto.CourseDto;
@@ -32,53 +34,28 @@ public class CourseServiceImpl implements CourseService {
 
     }
 
-    // @Override
-    // public List<CourseDto> getAllCourses() {
-    // List<Courses> Courses = sRepo.findAll();
-    // List<CourseDto> dtoList = new ArrayList<>();
-    // for (Courses Course : Courses) {
-    // CourseDto dto = new CourseDto(Course.getId(),Course.getCourse());
-    // dtoList.add(dto);
-    // }
-    // return dtoList;
+    @Override
+    public List<CourseDto> getCourseById(Long programId) {
+        pRepo.findById(programId).orElseThrow(
+                () -> new RuntimeException("Program Not Found"));
 
-    // }
+        List<Courses> courses = cRepo.findByProgramsId(programId);
 
-    // @Override
-    // public CourseDto updateCourses(Long id, CreateCourseDto dto) {
-    // Courses Courses = sRepo.findById(id).orElseThrow(
-    // () -> new RuntimeException("Course Not Found"));
-    // Courses.setCourse(dto.getCourse());
+        return courses.stream()
+                .map(course -> new CourseDto(
+                        course.getId(),
+                        course.getCourse(),
+                        course.getPrograms()))
+                .toList();
 
-    // Courses saveCourse = sRepo.save(Courses);
+    }
 
-    // return new CourseDto(saveCourse.getId(),saveCourse.getCourse());
+    @Override
+    public String deleteCourse(Long id) {
+        cRepo.deleteById(id);
+        return "Course Deleted Successfully";
 
-    // }
-
-    // public CourseDto patchCourse(Long id, CreateCourseDto dto) {
-    // Courses Courses = sRepo.findById(id).orElseThrow();
-    // if (dto.getName() != null) {
-    // Courses.setName(dto.getName());
-    // }
-    // if (dto.getAddress() != null) {
-    // Courses.setAddress(dto.getAddress());
-    // }
-    // if (dto.getFatherName() != null) {
-    // Courses.setFatherName(dto.getFatherName());
-    // }
-    // if (dto.getMobile() != null) {
-    // Courses.setMobile(dto.getMobile());
-    // }
-    // return new CourseDto(Courses.getId(), Courses.getName(),
-    // Courses.getFatherName(), Courses.getMobile(),
-    // Courses.getAddress());
-
-    // }
-
-    // @Override
-    // public String deleteCourse(Long id) {
-    // sRepo.deleteById(id);
-    // return null;
+       
+    }
 
 }
