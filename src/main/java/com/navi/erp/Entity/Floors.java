@@ -1,8 +1,6 @@
 package com.navi.erp.Entity;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,8 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,20 +19,17 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Blocks {
+public class Floors {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "block_name", nullable = false)
-    private String block;
+    @Column(name = "floor_name", nullable = false)
+    private String floor;
 
-    @OneToOne
-    @JoinColumn(name = "program_id")
-    private Programs programs;
-
-    @OneToMany(mappedBy = "block")
-    @JsonManagedReference
-    private List<Floors> floors;
+    @ManyToOne
+    @JoinColumn(name = "block_id")
+    @JsonBackReference
+    private Blocks block;
 }

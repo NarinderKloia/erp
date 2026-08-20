@@ -7,7 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ProgramDto {
-    private Long Id;
-    private String program;
+public class FloorDto {
+
+    private Long id;
+    private String floor;
+    private BlockDto block;
 }
