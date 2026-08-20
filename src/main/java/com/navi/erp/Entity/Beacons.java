@@ -17,21 +17,24 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Rooms {
+public class Beacons {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "room_name", nullable = false)
-    private String Rooms;
+    @Column(name = "beacon_name", nullable = false)
+    private String Label;
 
-    private String geo_north;
-    private String geo_south;
-    private String geo_east;
-    private String geo_west;
-    private String geo_north_lat;
-    private String geo_south_lat;
-    private String geo_east_lat;
-    private String geo_west_lat;
+    @Column(nullable = false)
+    private String MAC;
+
+    @Column(nullable = false)
+    private String UUID;
+
+    @Column(nullable = false)
+    private String Major;
+
+    @Column(nullable = false)
+    private String Minor;
 
     @ManyToOne
     @JoinColumn(name = "floor_id")

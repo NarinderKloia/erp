@@ -1,0 +1,33 @@
+package com.navi.erp.Controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.navi.erp.Dto.CreateBeaconDto;
+import com.navi.erp.Dto.BeaconDto;
+import com.navi.erp.Service.BeaconService;
+
+import lombok.AllArgsConstructor;
+
+@RestController
+@RequestMapping("api/floors/{floorId}/beacon")
+@AllArgsConstructor
+public class BeaconController {
+    public final BeaconService service;
+
+    @PostMapping
+    public BeaconDto createBeacon(@PathVariable Long floorId, @RequestBody CreateBeaconDto dto) {
+        return service.createBeacon(floorId, dto);
+    }
+
+    @GetMapping
+    public List<BeaconDto> getAllBeacons() {
+        return service.getAllBeacons();
+    }
+}

@@ -28,7 +28,11 @@ public class RoomServiceImpl implements RoomService {
         rooms.setFloors(floors);
         rooms.setRooms(dto.getRooms());
         Rooms saveRooms = rRepo.save(rooms);
-        return new RoomDto(saveRooms.getId(), saveRooms.getRooms(), saveRooms.getFloors());
+        return new RoomDto(saveRooms.getId(), saveRooms.getRooms(),
+                saveRooms.getGeo_north(), saveRooms.getGeo_south(), saveRooms.getGeo_east(), saveRooms.getGeo_west(),
+                saveRooms.getGeo_north_lat(), saveRooms.getGeo_south_lat(), saveRooms.getGeo_east_lat(),
+                saveRooms.getGeo_west_lat(),
+                saveRooms.getFloors());
 
     }
 
@@ -37,9 +41,10 @@ public class RoomServiceImpl implements RoomService {
         List<Rooms> rooms = rRepo.findAll();
         List<RoomDto> dtoList = new ArrayList<>();
         for (Rooms room : rooms) {
-            RoomDto dto = new RoomDto(
-                    room.getId(),
-                    room.getRooms(),
+            RoomDto dto = new RoomDto(room.getId(), room.getRooms(),
+                    room.getGeo_north(), room.getGeo_south(), room.getGeo_east(), room.getGeo_west(),
+                    room.getGeo_north_lat(), room.getGeo_south_lat(), room.getGeo_east_lat(),
+                    room.getGeo_west_lat(),
                     room.getFloors());
             dtoList.add(dto);
         }
