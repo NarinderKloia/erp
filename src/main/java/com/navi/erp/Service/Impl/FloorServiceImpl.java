@@ -52,7 +52,7 @@ public class FloorServiceImpl implements FloorService {
         List<Floors> floors = brepo.findAll();
         List<FloorDto> dtoList = new ArrayList<>();
 
-        for (Floors floor : floors) {
+        for (Floors floor : floors) {   
 
             BlockDto blockDto = new BlockDto(
                     floor.getBlock().getId(),
